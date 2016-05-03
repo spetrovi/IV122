@@ -1,6 +1,6 @@
 from PIL import Image
 from random import choice,randint
-from cviko import forward, back, left, right, done, penup, pendown, Korytnacka
+from cviko3T import Korytnacka
 import math
 
 
@@ -103,20 +103,24 @@ class Lsystem:
 #l = Lsystem('F - - F - - F', ['F F + F - - F + F'],60,4,(150,450),0,5)#koch
 #l = Lsystem('A',['A + B - A - B +', 'B - A + B + A -'],60,6,(500,450),180,7)#sier
 #l = Lsystem('X',['X F - [ [ X ] + X ] + F [ + F X ] - X','F F F'],25,6,(350,660),90,4) #algae
-#l = Lsystem('F',['F F [ + F ] F [ - F ] [ F ]'],30,5,(350,660),90,10) #plant
+#l = Lsystem('F',['F F [ + F ] F [ - F ] [ F ]'],25.7,5,(350,660),90,10) #plant
 #l = Lsystem('F',['F F F - [ - F + F + F ] + [ + F - F - F ]'],20,4,(430,660),90,11)#plant2
-#l = Lsystem('F',['F F [ + F ] F [ - F ] F'],25.7,4,(430,660),90,8) #plant3
-#l = Lsystem('F + F + F + F',['F F F + F + F + F + F F'],90,4,(50,50),0,6)#box
-#l = Lsystem('X F',['X X + Y F + + Y F - F X - - F X F X - Y F +', 'Y - F X + Y F Y F + + Y F + F X - - F X - Y', 'F F'],60,4,(250,350),90,7)#hex
+#l = Lsystem('F',['F F [ + F ] F [ - F ] F'],25.7,4,(350,660),90,8) #plant3
+#l = Lsystem('F + F + F + F',['F F F + F + F + F + F F'],90,4,(100,100),0,6)#box
+#l = Lsystem('X F',['X X + Y F + + Y F - F X - - F X F X - Y F +', 'Y - F X + Y F Y F + + Y F + F X - - F X - Y', 'F F'],60,4,(150,250),90,7)#hex
 #l = Lsystem('F + F + F + F',['F F F + F + F + F + F + F - F'],90,4,(450,150),0,3)#ring
 #l = Lsystem('F - F - F - F',['F F - F + F + F - F'],90,4,(100,600),0,6)#box 2
-l = Lsystem('F + F + F + F',['F F F + F + + F + F'],90,5,(100,100),0,2)#crystal
+#l = Lsystem('F + F + F + F',['F F F + F + + F + F'],90,5,(100,100),0,2)#crystal
 #l = Lsystem('[ N ] + + [ N ] + + [ N ] + + [ N ] + + [ N ]',['M O A + + P A - - - N A [ - O A - - - M A ] + +','N + O A - - P A [ - - M A - - N A ] +','O - M A + + N A [ + + + O A + + P A ] -','P - - O A + + + + M A [ + P A + + + + N A ] - - N A'],36,6,(350,350),0,9)#penrose tiling
+#l = Lsystem('X',['X + Y F - X F X - F Y +','Y - X F + Y F Y + F X -','F F'],90,7,(30,30),0,5)#hilbert
+#l = Lsystem('X',['X F [ + X ] F [ - X ] + X ','F F F'],20,6,(350,660),90,5) #plant4
+#l = Lsystem('X',['X F [ + X ] [ - X ] F X','F F F'],25.7,6,(350,660),90,5) #plant5
+l = Lsystem('F',['F F [ + F ] F [ - F ] [ F ]'],20,5,(350,660),90,10) #plant6
 l.evaluate_string()
 l.grow_it()
 l.draw_it()
 l.display()
-#l.save('./cviko6/LPlant3')
+l.save('./cviko6/plant')
 #chaos_game(6)
 
 
