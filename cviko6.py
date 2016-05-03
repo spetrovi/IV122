@@ -1,6 +1,6 @@
 from PIL import Image
 from random import choice,randint
-from cviko3T import forward, back, left, right, done, penup, pendown, Korytnacka
+from cviko import forward, back, left, right, done, penup, pendown, Korytnacka
 import math
 
 
@@ -23,12 +23,13 @@ def chaos_game(n):
 
 
 class Lsystem:
-   def __init__(self, axiom, rules,angle,level):
+   def __init__(self, axiom, rules,angle,level,start_position,start_angle,length):
       self.instructions = axiom
       self.rules = rules
-      self.length = 10
+      self.length = length
       self.angle = angle
-      self.g = Korytnacka(700)
+      self.start_angle = start_angle
+      self.g = Korytnacka(700,start_position)
       self.level = level
       self.variables = self.identify_variables()
 
@@ -62,20 +63,14 @@ class Lsystem:
 	for i in range(0,self.level):
 		self.rewrite()
 
-
-
-
    def draw_it(self):
-	#print self.instructions
-	eval('self.g.left(90)')
+	eval('self.g.left('+str(self.start_angle)+')')
 	i = 0
 	for item in self.instructions:
-		
-		
-		if item == 'F' or item == 'A' or item == 'B':
+		if item == 'F' or item == 'A' or item == 'B'  or item == 'O' or item == 'P' or item == 'N' or item == 'M':
 			i+=1
-			item = 'self.g.forward(11)'
-			self.g.save('./exp/'+str(i))
+			item = 'self.g.forward('+str(self.length)+')'
+			#self.g.save('./exp/'+str(i))
 		if item == '+':
 			item = 'self.g.right('+str(self.angle)+')'
 		if item == '-':
@@ -84,26 +79,40 @@ class Lsystem:
 			item = 'self.g.push()'
 		if item == ']':
 			item = 'self.g.pop()'
-		if item != 'X':
+		if item != 'X' and item != 'Y' and item != '':
+
 			eval(item)
 		#eval(item)
 
+   def evaluate_string(self):
+	self.instructions = self.instructions.split(' ')
+	new_rules = []
+	for item in self.rules:
+		new_rules += [item.split(' ')]
+	self.rules = list(new_rules)
+	
    def display(self):
 	self.g.display() 
    def save(self,name):
 	self.g.save(name)
 
 
-#to run L-system, iterate through list of intstructions with eval(instruction)
 #g.display()
 
-#l = Lsystem(['A'],[('F','F','F'),('A','F','[','-','A',']','+','A')],60,7)
-#l = Lsystem(['F','-','-','F','-','-','F'],[('F','F','+','F','-','-','F','+','F')],60,3)#koch
-#l = Lsystem(['A'],[('A','+','B','-','A','-','B','+'),('B','-','A','+','B','+','A','-')],60,5)#sier
-#l = Lsystem(['X'],[('X','F','-','[','[','X',']','+','X',']','+','F','[','+','F','X',']','-','X'),('F','F','F')],25,5)
-#l = Lsystem(['F'],[('F','F','[','+','F',']','F','[','-','F',']','[','F',']')],20,5)
-l = Lsystem(['F'],[('F','F','F','-','[','-','F','+','F','+','F',']','+','[','+','F','-','F','-','F',']')],22.5,4)
-#l = Lsystem(['F'],[('F','F','[','+','F',']','F','[','-','F',']','F')],25.7,4)
+#l = Lsystem('A',['F F F','A F [ - A ] + A'],45,7,(350,600),90,5)
+#l = Lsystem('F - - F - - F', ['F F + F - - F + F'],60,4,(150,450),0,5)#koch
+#l = Lsystem('A',['A + B - A - B +', 'B - A + B + A -'],60,6,(500,450),180,7)#sier
+#l = Lsystem('X',['X F - [ [ X ] + X ] + F [ + F X ] - X','F F F'],25,6,(350,660),90,4) #algae
+#l = Lsystem('F',['F F [ + F ] F [ - F ] [ F ]'],30,5,(350,660),90,10) #plant
+#l = Lsystem('F',['F F F - [ - F + F + F ] + [ + F - F - F ]'],20,4,(430,660),90,11)#plant2
+#l = Lsystem('F',['F F [ + F ] F [ - F ] F'],25.7,4,(430,660),90,8) #plant3
+#l = Lsystem('F + F + F + F',['F F F + F + F + F + F F'],90,4,(50,50),0,6)#box
+#l = Lsystem('X F',['X X + Y F + + Y F - F X - - F X F X - Y F +', 'Y - F X + Y F Y F + + Y F + F X - - F X - Y', 'F F'],60,4,(250,350),90,7)#hex
+#l = Lsystem('F + F + F + F',['F F F + F + F + F + F + F - F'],90,4,(450,150),0,3)#ring
+#l = Lsystem('F - F - F - F',['F F - F + F + F - F'],90,4,(100,600),0,6)#box 2
+l = Lsystem('F + F + F + F',['F F F + F + + F + F'],90,5,(100,100),0,2)#crystal
+#l = Lsystem('[ N ] + + [ N ] + + [ N ] + + [ N ] + + [ N ]',['M O A + + P A - - - N A [ - O A - - - M A ] + +','N + O A - - P A [ - - M A - - N A ] +','O - M A + + N A [ + + + O A + + P A ] -','P - - O A + + + + M A [ + P A + + + + N A ] - - N A'],36,6,(350,350),0,9)#penrose tiling
+l.evaluate_string()
 l.grow_it()
 l.draw_it()
 l.display()

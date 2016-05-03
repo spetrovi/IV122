@@ -2,7 +2,6 @@ from PIL import Image, ImageDraw
 import math
 
 def full_circle(size,r):
-	print
 	im = Image.new('L', (size,size))
 	for x in range(size):
 		for y in range(size):
@@ -25,15 +24,23 @@ def circle(size,r,brush):
 def spiral(size,r,brush):
 	im = Image.new('L', (size,size),255)
 	s2 = size/2
-	x=s2
-	y=s2
+	x0=s2
+	y0=s2
+	for angle in range(0,360):
+		x = x0 +int(math.cos(math.radians(angle)) * angle)
+		y = y0 + int(math.sin(math.radians(angle)) * angle)
+		im.putpixel((x,y),0)
+	im.show()
+
+"""
 	angle = 0.0
 	radius = 0.0
 	while radius < r:
 		im.putpixel((int(x+radius*math.sin(angle)),int(y+radius*math.cos(angle))),0)
 		radius += 0.1
 		angle += math.pi*10
-	im.show()
+"""
+	
 
 def pruhy(size,n):
 	im = Image.new('L', (size,size))
@@ -89,11 +96,11 @@ def chess(size,size_of_square):
 	
 	im.show()
 			
-full_circle(150,50)
+#full_circle(150,50)
 #circle(150,50,5)
-#spiral(300,100,5)
+spiral(1000,50,5)
 #pruhy(150,5)
-chess(500,18)
+#chess(500,18)
 
 
 
