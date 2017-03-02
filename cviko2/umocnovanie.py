@@ -22,10 +22,10 @@ def better_power(x,pow):
 def sqrt_II(x, root, accuracy):
 	newx = float(x)/2
 	for i in range(0,20):
-		newx -= 0.1
 		new_power = power(newx, root)
 		if new_power < x+accuracy and new_power > x-accuracy:
 			break
+		newx -= 0.1
 	return newx
 
 def sqrt_I(x, root, accuracy):
