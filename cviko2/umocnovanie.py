@@ -2,7 +2,15 @@
 #a^n mod k
 #vypocet pi
 #odmocniny-polenie intervalu sqrt(5)==> 2,2^2; 2.3^2...
-from fractions import Fraction
+from fractions import gcd
+
+def fr(n):
+	pw = int(''.join(str(n).split('.')))
+	sq = int(str(n).split('.')[1])
+	sq = power(10,len(str(sq)))
+	g = gcd(pw,sq)
+	return pw/g, sq/g
+
 
 def power(x, power):
 	res = 1
@@ -14,8 +22,7 @@ def better_power(x,pow):
 	if pow % 1 == 0:
 		return power(x,pow)
 	else:
-		pw = int(str(Fraction(pow)).split('/')[0])
-		sq = int(str(Fraction(pow)).split('/')[1])
+		pw, sq = fr(pow)
 		return sqrt_I(power(x,pw), sq, 0.1)
 		
 
@@ -41,5 +48,5 @@ def sqrt_I(x, root, accuracy):
 		else:
 			a = result
 
-
+print better_power(3,2.2)
 
