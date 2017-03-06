@@ -167,7 +167,7 @@ def var_repeat(lis,k):
     result += new_list
   return result  
 
-print combinations(['A','B','C','D'],2)
-print combinations_repeat(['A','B','C','D'],2)
-print variations(['A','B','C','D'],2)
-print variations_repeat(['A','B','C'],2)
+#print combinations(['A','B','C','D'],2)
+##print combinations_repeat(['A','B','C','D'],2)
+#print variations(['A','B','C','D'],2)
+#print variations_repeat(['A','B','C'],2)

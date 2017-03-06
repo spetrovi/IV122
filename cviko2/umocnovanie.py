@@ -2,13 +2,22 @@
 #a^n mod k
 #vypocet pi
 #odmocniny-polenie intervalu sqrt(5)==> 2,2^2; 2.3^2...
-from fractions import gcd
+
+def my_modulo (a, b):
+	return a-(a/b)
+
+#euklidov algoritmus
+def my_gcd(a, b):
+	while b:
+		a = b
+		b = my_modulo(a, b)
+	return a
 
 def fr(n):
 	pw = int(''.join(str(n).split('.')))
 	sq = int(str(n).split('.')[1])
 	sq = power(10,len(str(sq)))
-	g = gcd(pw,sq)
+	g = my_gcd(pw,sq)
 	return pw/g, sq/g
 
 
@@ -48,5 +57,5 @@ def sqrt_I(x, root, accuracy):
 		else:
 			a = result
 
-print better_power(3,2.2)
+print better_power(4,2.2)
 
