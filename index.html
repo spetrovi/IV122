@@ -90,7 +90,7 @@
 
 <DT>C) Ulamova špirála:
 <UL>
-<LI>Prvočísla
+<LI>Prvočísla (pozorujeme, že prvočísla sa zhlukujú na diagonálach)
 <UL><LI><img src="cviko1/primes.png" style="width:550px;height:550px;"></UL>
 <LI>Animácia vývoja pre moduly 2-399
 <UL><LI><img src="cviko1/ulam.gif" alt="This will display an animated GIF" /></UL>
@@ -101,6 +101,144 @@
 
 <a name="cviko2" /a>
 <DT><STRONG>Cvičenie 2</STRONG>
+<DT>A) Kombinatorika:
+<LI> Kombinácie
+<UL>
+<pre>
+def combinations(lis, k):
+	result = []
+	if k == 0:
+		return [[]]
+	else:
+		for i in range(len(lis)):
+			some_result = combinations(lis[i+1:], k-1)
+			for item in some_result:
+				result.append([lis[i]]+item)
+	return result
+</pre>
+</UL>
+
+<LI>Kombinácie s opakovaním
+<UL>
+<pre>
+def combinations_repeat(lis, k):
+	result = []
+	if k == 0:
+		return [[]]
+	else:
+		for i in range(len(lis)):
+			some_result = combinations(lis[i:], k-1)
+			for item in some_result:
+				result.append([lis[i]]+item)
+	return result
+</pre>
+</UL>
+<LI>Variácie
+<UL>
+<pre>
+def variations(lis, k):
+	result = []
+	if k == 0:
+		return [[]]
+	else:
+		for i in range(len(lis)):
+			tmp_list = lis[:]
+			tmp_list.remove(lis[i])
+			some_result = combinations_repeat(tmp_list, k-1)
+			for item in some_result:
+				result.append([lis[i]]+item)
+	return result
+</pre>
+</UL>
+<LI>Variácie s opakovaním
+<UL>
+<pre>
+def variations_repeat(lis, k):
+	result = []
+	if k == 0:
+		return [[]]
+	else:
+		for i in range(len(lis)):
+			some_result = combinations_repeat(lis[:], k-1)
+			for item in some_result:
+				result.append([lis[i]]+item)
+	return result
+</pre>
+</UL>
+<DT>B) Pascalov trojuholník
+<LI>Pomalá metóda: pre každé políčko sa samostatne vypočíta kombinačné číslo.
+<UL>
+<pre>
+def slow_rows(n):
+	result = []
+	for i in range(0,n+1):
+		row = []
+		for j in range(0,i+1):
+			row.append(len(combinations(range(i),j)))
+		result.append(row)
+	return result
+</pre>
+</UL>
+<UL>
+<LI> Veselá anekdota: Pomocou tejto neefektívnej metódy som nechal na pracovnom serveri vypočítať trojuholník do 60 stupnňa. Po dvadsiatich hodinách výpočet stále "prebiehal", až na to, že dokázal skonzumovať 50GB RAM-ky. Vinu z prílišneho zaťaženia som úspešne zvalil na kolegu, o ktorom je známe, že používa Javu...
+</UL>
+
+<LI> Rýchla metóda: Hodnota políčka vznikne sčítaním hodnôt nad ním
+<UL>
+<pre>
+def quick_rows(n):
+	result = []
+	prev_row = []
+	for i in range(1,n):
+		row = []
+		for j in range(0,i):
+			if j == 0 or j == i-1:
+				row.append(1)
+			else:
+				row.append(prev_row[j]+prev_row[j-1])
+		prev_row = row[:]
+		result.append(row)
+	return result
+</pre>
+<LI> Vyfarbené moduly od 1 po 9
+<UL>
+<table>
+<tr>
+<td>
+<img src="cviko2/mod1.png" style="width:400px;height:400px;">
+</td>
+<td>
+<img src="cviko2/mod2.png" style="width:400px;height:400px;">
+</td>
+<td>
+<img src="cviko2/mod3.png" style="width:400px;height:400px;">
+</td>
+</tr>
+<tr>
+<td>
+<img src="cviko2/mod4.png" style="width:400px;height:400px;">
+</td>
+<td>
+<img src="cviko2/mod5.png" style="width:400px;height:400px;">
+</td>
+<td>
+<img src="cviko2/mod6.png" style="width:400px;height:400px;">
+</td>
+</tr>
+<tr>
+<td>
+<img src="cviko2/mod7.png" style="width:400px;height:400px;">
+</td>
+<td>
+<img src="cviko2/mod8.png" style="width:400px;height:400px;">
+</td>
+<td>
+<img src="cviko2/mod9.png" style="width:400px;height:400px;">
+</td>
+</tr>
+</table>
+</UL>
+</UL>
 
 <br><a href="#TOC">Go back to TOC</a>
 
