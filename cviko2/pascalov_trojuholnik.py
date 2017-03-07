@@ -8,8 +8,7 @@ from kombinatorika import combinations
 def draw_square(pos, size, square):
 	for x in range(pos[0]-size/2, pos[0]+size/2):
 		for y in range(pos[1]-size/2, pos[1]+size/2):
-			product = square % 1
-			#product = square % 6
+			product = square % 9
 			if product == 1:
 				color = (0,0,255)
 			if product == 2:
@@ -26,6 +25,8 @@ def draw_square(pos, size, square):
 				color = (255,125,125)
 			if product == 7:
 				color = (0,125,125)
+			if product == 8:
+				color = (50,125,0)
 			pixels[x,y] = color
 
 def slow_rows(n):
@@ -69,4 +70,4 @@ for row in num_list:
 		draw_square((x,y), sqrsize, square)
 		x+=sqrsize
 
-im.save('mod1.png','png')
+im.save('mod9.png','png')
