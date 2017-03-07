@@ -58,6 +58,7 @@ class Korytnacka:
 	self.im.save(name+'.png','png')
 
 
+
 def tree(g,length, min_length=1):
     g.forward(length)
     if length > min_length:
@@ -152,7 +153,8 @@ def pentaflake(level):
 		pent_side(g,8000,level)
 		g.right(72)
 	g.display()
-	g.save('./cviko3/pentaflake')
+	g.save('./cviko3/pentaflake2222222222222')
+	g.show()
 
 def draw_tree(level):
 	g = Korytnacka(500,(250,400))
@@ -161,7 +163,7 @@ def draw_tree(level):
 	g.display()
 	g.save('./cviko3/tree')
 
-#pentaflake(3)
+pentaflake(2)
 #kochflake(4)
 #sierpinsky(2)
 #draw_tree(150)
