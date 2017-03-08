@@ -34,11 +34,11 @@
 	    </head>
   <DT><CENTER><STRONG>Portfolio</CENTER> </STRONG>
   <br>              
-  <br><DT><STRONG>Silne stranky</STRONG>
+  <br><DT><STRONG>Silné stránky</STRONG>
 <UL>
   <LI> A) Práca s grafikou, B) Collatzova postupnosť, C) Ulamova špirála, D)NSD prvá časť.
-  <LI> A) Generovanie kombinácií, variácií a permutácií
-  <LI> A) Knžnica pre korytnačiu grafiku, C) Koryrnačia grafika a fraktály (Kochova vločka, Sierpinskeho trojuholnik, Päťuholníková vločka, Strom)
+  <LI> A) Generovanie kombinácií, variácií a permutácií, B) Pascalov trojuholník, C) Umocňovanie na reálny exponent len pomocou základných operácií  
+  <LI> A) Knžnica pre korytnačiu grafiku, B) Absolútne/Relatívne vykreslovanie, C) Koryrnačia grafika a fraktály
   <LI> A) Základné tvary(len kruh a kružnica), C) Efekty (len šachovnica s krúžkami)
   <LI> A) Priesečníky úsečiek
   <LI> A) Chaos game, L-systémy
@@ -243,7 +243,82 @@ def quick_rows(n):
 <br><a href="#TOC">Go back to TOC</a>
 
 <a name="cviko3" /a>
+
 <DT><STRONG>Cvičenie 3</STRONG>
+<DT>B) Absolútna/relatívna grafika
+<UL>
+<LI>Pentagram absolútne
+<UL>
+<pre>
+#Rozdelím kružnicu na 5 bodov a pospájam
+def pentagram_absolutne(size, ratio):
+		im = Image.new('RGB', (size, size), (255,255,255))
+		draw = ImageDraw.Draw(im) 
+
+		x1, y1 = 250, 250
+		
+		points = [(int(math.cos(2*math.pi/5*x)*ratio)+x1,int(math.sin(2*math.pi/5*x)*ratio)+y1) for x in xrange(0,5)]
+		points2 = points[:]
+		for point in points:
+			for point2 in points2:
+				draw.line((point[0], point[1], point2[0],point2[1]), fill = 0)
+			points2.pop(0)
+		im.save('pentagram_absolutne.png','png')
+</pre>
+<LI><img src="cviko3/pentagram_absolutne.png" style="width:550px;height:550px;">
+</UL>
+
+<LI>Pentagram relatívne
+<UL>
+<pre>
+#Vypočítam dlhé a krátke rameno a kreslím 5x
+def pentagram_relativne(size, position, side):
+		inside_angle = 180-(360/5)
+		pentagram_angle = (180 - inside_angle)/2 #rovnoramenny trojuholnik. Sucet uhlov trojuholnika je 180
+		long_side = int(2*(side*math.cos(math.radians(pentagram_angle))))
+		g = Korytnacka(size, position)
+		g.right(180+72)
+		for i in range(0,5):
+			g.right(180-pentagram_angle)
+			g.forward(side)
+			g.right(180-pentagram_angle)
+			g.forward(long_side)
+</pre>
+<LI><img src="cviko3/pentagram_relativne.png" style="width:550px;height:550px;">
+</UL>
+
+<LI>Štvorcová špirála (zvolil som relatívne)
+<UL>
+<pre>
+#Pre ľubovolnú koštantu z intervalu (side, sqrt(2*(side/2)^2)) sa pomocou acos() dopocita potrebný uhol. Veľkost strany menšieho štvorca je side*constant
+def spiral(size, position, side, constant):
+	g = Korytnacka(size, position)
+	draw_square(g, side)
+	angle = math.degrees(math.acos((side - constant*side)/(constant*side)))
+	for i in range(1, 35):	
+		g.forward(side-side*constant)
+		side = side * constant
+		g.right(90-angle)
+		draw_square(g, side)
+	g.save('spirala')		
+</pre>
+<LI><img src="cviko3/spirala.png" style="width:400px;height:400px;">
+</UL>
+
+</UL>
+
+
+
+
+
+
+
+
+
+
+
+
+
 <DT>C) Korytnačia grafika a fraktály:
 <UL>
 <LI> Kochova vločka

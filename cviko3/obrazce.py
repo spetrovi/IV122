@@ -89,9 +89,29 @@ def pentagram_absolutne(size, ratio):
 			points2.pop(0)
 		im.save('pentagram_absolutne.png','png')
 
+def draw_square(g, side):
+	for i in range(0,4):
+		g.forward(side)
+		g.right(90)
 
-pentagram_relativne(500, (250, 100), 200)
-pentagram_absolutne(500, 200)
+
+def spiral(size, position, side, constant):
+	g = Korytnacka(size, position)
+	draw_square(g, side)
+	angle = math.degrees(math.acos((side - constant*side)/(constant*side)))
+	for i in range(1, 35):	
+		g.forward(side-side*constant)
+		side = side * constant
+		g.right(90-angle)
+		draw_square(g, side)
+	g.save('spirala')
+
+
+#side > new_side > sqrt(2*(side/2)^2)<---pytagorova veta
+#Pre lubovolnu kostantu z intervalu (side, sqrt(2*(side/2)^2)) sa pomocou acos() dopocita potrebny uhol
+spiral(500, (25,25), 450, 0.88)
+#pentagram_relativne(500, (250, 100), 200)
+#pentagram_absolutne(500, 200)
 
 
 
