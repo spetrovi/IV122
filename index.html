@@ -305,6 +305,29 @@ def spiral(size, position, side, constant):
 <LI><img src="cviko3/spirala.png" style="width:400px;height:400px;">
 </UL>
 
+<LI>Kruhová mriežka (zvolil som absolútne)
+<UL>
+<pre>
+#Pomocou pytagorovej vety sa spočíta dĺžka tetivy
+def grid(size, ratio, fineness):
+	im = Image.new('RGB', (size, size), (255,255,255))
+	draw = ImageDraw.Draw(im) 
+	x1, y1 = 250, 50
+	x2, y2 = x1-ratio-fineness, y1+ratio+fineness
+	for i in range(0, 2*ratio/fineness+1):
+		v = ratio - i*fineness
+
+		length = math.sqrt((ratio**2)-v**2)
+		y1 = y1+fineness
+		draw.line((x1-length, y1, x1+length, y1), fill = 0)
+	
+		x2 = x2+fineness
+		draw.line((x2, y2-length, x2, y2+length), fill = 0)
+	im.save('grid.png','png')		
+</pre>
+<LI><img src="cviko3/grid.png" style="width:400px;height:400px;">
+</UL>
+
 </UL>
 
 

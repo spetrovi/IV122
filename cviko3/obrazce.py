@@ -106,10 +106,29 @@ def spiral(size, position, side, constant):
 		draw_square(g, side)
 	g.save('spirala')
 
+def grid(size, ratio, fineness):
+	im = Image.new('RGB', (size, size), (255,255,255))
+	draw = ImageDraw.Draw(im) 
+	x1, y1 = 250, 50
+	x2, y2 = x1-ratio-fineness, y1+ratio+fineness
+	for i in range(0, 2*ratio/fineness+1):
+		v = ratio - i*fineness
+
+		length = math.sqrt((ratio**2)-v**2)
+		y1 = y1+fineness
+		draw.line((x1-length, y1, x1+length, y1), fill = 0)
+	
+		x2 = x2+fineness
+		draw.line((x2, y2-length, x2, y2+length), fill = 0)
+	im.save('grid.png','png')
+
+#pomocou pytagorovej vety sa spocita dlzka tetivy
+grid(500, 200, 10)
 
 #side > new_side > sqrt(2*(side/2)^2)<---pytagorova veta
 #Pre lubovolnu kostantu z intervalu (side, sqrt(2*(side/2)^2)) sa pomocou acos() dopocita potrebny uhol
-spiral(500, (25,25), 450, 0.88)
+
+#spiral(500, (25,25), 450, 0.88)
 #pentagram_relativne(500, (250, 100), 200)
 #pentagram_absolutne(500, 200)
 
