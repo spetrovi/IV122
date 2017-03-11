@@ -14,18 +14,18 @@ class Korytnacka:
 
    def forward(self,length):
 
-    new_x = self.x + int(math.cos(math.radians(self.angle)) * length)
-    new_y = self.y + int(math.sin(math.radians(self.angle)) * length)
+    new_x = self.x + math.cos(math.radians(self.angle)) * length
+    new_y = self.y + math.sin(math.radians(self.angle)) * length
     if self.pen == 1:    
 	self.draw.line((self.x,self.y, new_x,new_y),fill=0)
     self.x = new_x
     self.y = new_y
     
    def back(self,length):
-    new_x = self.x - int(math.cos(math.radians(self.angle)) * length)
-    new_y = self.y - int(math.sin(math.radians(self.angle)) * length)
+    new_x = self.x - math.cos(math.radians(self.angle)) * length
+    new_y = self.y - math.sin(math.radians(self.angle)) * length
     if self.pen == 1:
-    	self.draw.line((self.x,self.y, new_x,new_y),fill=255)
+    	self.draw.line((self.x,self.y, new_x,new_y),fill=0)
     self.x = new_x
     self.y = new_y
     
@@ -140,16 +140,28 @@ def triangles(size, side, fineness):
 		draw.line((x3, y2, x2, y2), fill = 0)
 	im.save('triangles.png','png')
 
-	
+
+def penrose(size, fineness):
+		side = (size/10) - fineness
+		position = (250, 250)
+		inside_angle = 360/fineness
+		g = Korytnacka(size, position)
+		g.right(180+72)
+		for i in range(0, fineness):
+			for j in range(0,fineness):
+				g.right(inside_angle)
+				g.forward(side)
+			g.right(inside_angle)
+		g.save('penrose')
 	
 
-
-triangles(500, 400, 5)
+penrose(500, 18)
+#triangles(500, 400, 5)
 #pomocou pytagorovej vety sa spocita dlzka tetivy
 #grid(500, 200, 10)
 #side > new_side > sqrt(2*(side/2)^2)<---pytagorova veta
 #Pre lubovolnu kostantu z intervalu (side, sqrt(2*(side/2)^2)) sa pomocou acos() dopocita potrebny uhol
-#spiral(500, (25,25), 450, 0.88)
+spiral(500, (25,25), 450, 0.88)
 #pentagram_relativne(500, (250, 100), 200)
 #pentagram_absolutne(500, 200)
 

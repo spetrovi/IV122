@@ -9,25 +9,32 @@ class Korytnacka:
       self.im = Image.new('RGB', (size, size), (255,255,255))
       self.draw = ImageDraw.Draw(self.im) 
       self.angle = 0
-      self.pen = 1
+      self.pen = True
       self.stack = []
+      self.counter = 0
+      self.draw_process = False
 
    def forward(self,length):
-
-    new_x = self.x + int(math.cos(math.radians(self.angle)) * length)
-    new_y = self.y + int(math.sin(math.radians(self.angle)) * length)
-    if self.pen == 1:    
-	self.draw.line((self.x,self.y, new_x,new_y),fill=0)
+    new_x = float(self.x + math.cos(math.radians(self.angle)) * length)
+    new_y = float(self.y + math.sin(math.radians(self.angle)) * length)
+    if self.pen:    
+	self.draw.line((self.x, self.y, new_x, new_y), fill = 0)
     self.x = new_x
     self.y = new_y
+    if self.draw_process:
+	self.counter += 1
+    	self.save('sier'+str(self.counter))
     
    def back(self,length):
-    new_x = self.x - int(math.cos(math.radians(self.angle)) * length)
-    new_y = self.y - int(math.sin(math.radians(self.angle)) * length)
-    if self.pen == 1:
-    	self.draw.line((self.x,self.y, new_x,new_y),fill=255)
+    new_x = float(self.x - math.cos(math.radians(self.angle)) * length)
+    new_y = float(self.y - math.sin(math.radians(self.angle)) * length)
+    if self.pen:
+    	self.draw.line((self.x, self.y, new_x, new_y), fill = 255)
     self.x = new_x
     self.y = new_y
+    if self.draw_process:
+	self.counter += 1
+    	self.save('sier'+str(self.counter))
     
     
    def left(self,angle):
@@ -35,12 +42,14 @@ class Korytnacka:
    def right(self,angle):
       self.angle += angle
     
+   def draw_all(self):
+	self.draw_process = True
 
    def penup(self):
-	self.pen = 0
+	self.pen = False
    
    def pendown(self):
-	self.pen = 1
+	self.pen = True
 
    def display(self):
     self.im.show()
@@ -89,31 +98,36 @@ def kochflake(level):
         	kochside(g,450, level)
         	g.right(120)
 	g.display()
-	g.save('cviko3/kochflake')
+	g.save('kochflake')
 
 def sierpinsky(level):
-	g = Korytnacka(500,(50,400))
-	sier(g,512,level)
-	g.display()
+	g = Korytnacka(500,(30,450))
+	#g.draw_process = True
+	sier(g, 450, level)
+        g.save('sierpinsky')
 
-def sier(g,length, level):
+def sier(g, side, level):
     if level == 1:
-        for i in range(3):
-            g.forward(length)
+	g.pendown()
+        for i in range(0,3):
+            g.forward(side)
             g.left(120)
-    else:
-        sier(g,length/2, level-1)
-        g.forward(length/2)
-        sier(g,length/2, level-1)
-        g.back(length/2)
-        g.left(60)
-        g.forward(length/2)
-        g.right(60)
-        sier(g,length/2, level-1)
-        g.left(60)
-        g.back(length/2)
-        g.right(60)
+	g.penup()
 
+    else:
+	side /= 2
+	g.penup()
+        sier(g, side, level-1)
+        g.forward(side)
+        sier(g, side, level-1)
+	g.back(side)
+	g.left(60)
+        g.forward(side)
+        g.right(60)
+        sier(g, side, level-1)
+	g.left(60)
+	g.back(side)
+	g.right(60)
 
 def pent_side(g,length,level):
 	if level == 0:
@@ -153,7 +167,7 @@ def pentaflake(level):
 		pent_side(g,8000,level)
 		g.right(72)
 	g.display()
-	g.save('./cviko3/pentaflake2222222222222')
+	g.save('pentaflake')
 	g.show()
 
 def draw_tree(level):
@@ -161,11 +175,11 @@ def draw_tree(level):
 	g.left(90)
 	tree(g,level)
 	g.display()
-	g.save('./cviko3/tree')
+	g.save('tree')
 
-pentaflake(2)
+#pentaflake(2)
 #kochflake(4)
-#sierpinsky(2)
+#sierpinsky(8)
 #draw_tree(150)
 
 
