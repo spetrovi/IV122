@@ -122,12 +122,33 @@ def grid(size, ratio, fineness):
 		draw.line((x2, y2-length, x2, y2+length), fill = 0)
 	im.save('grid.png','png')
 
-#pomocou pytagorovej vety sa spocita dlzka tetivy
-grid(500, 200, 10)
+def triangles(size, side, fineness):
+	im = Image.new('RGB', (size, size), (255,255,255))
+	draw = ImageDraw.Draw(im)
+	x1, y1, x2, x3, y2 = 250, 250, 250, 250, 250
+	#pomocou pytagorovej vety vypocitam stranu trojuholnika podla vysky
+	hside = 0
+	while 2*hside < side:
+		y1 -= 2*fineness
+		y2 += fineness
+		v = y2 - y1
+		hside = v/math.atan(60)
+		x2 = x1 - hside
+		x3 = x1 + hside 
+		draw.line((x1, y1, x2, y2), fill = 0)
+		draw.line((x1, y1, x3, y2), fill = 0)
+		draw.line((x3, y2, x2, y2), fill = 0)
+	im.save('triangles.png','png')
 
+	
+	
+
+
+triangles(500, 400, 5)
+#pomocou pytagorovej vety sa spocita dlzka tetivy
+#grid(500, 200, 10)
 #side > new_side > sqrt(2*(side/2)^2)<---pytagorova veta
 #Pre lubovolnu kostantu z intervalu (side, sqrt(2*(side/2)^2)) sa pomocou acos() dopocita potrebny uhol
-
 #spiral(500, (25,25), 450, 0.88)
 #pentagram_relativne(500, (250, 100), 200)
 #pentagram_absolutne(500, 200)
