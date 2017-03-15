@@ -387,6 +387,100 @@ def penrose(size, fineness):
 <UL><LI><img src="cviko3/pentaflake.png" style="width:400px;height:400px;"></UL>
 </UL>
 
+<DT>D) Kreativita s korytnačkou
+<UL>
+<LI>Postupoval som ako bolo povedané na cviku: Vybral som si nejaké ťahy, ktoré som nechal opakovať 1000 krát a upravoval som parametre tak aby sa mi výsledok páčil
+<UL>
+<LI>Sínusová hviezdica
+<pre>
+def star():
+	angle = 10
+	angle2 = 170
+	kvocient = 50
+	kvocient2 = 2
+
+	forward = math.sin(math.radians(angle))*kvocient
+	for i in range(0,1000):
+		g.left(angle)
+		g.forward(forward)
+		g.right(angle2+i*10)
+		g.back(forward*kvocient2)
+		g.right(angle2+i*10)
+		g.forward(forward)
+</pre>
+<table>
+<tr>
+<td>
+<img src="cviko3/toiv/hokus_10_172_65_2.png" style="width:550px;height:550px;"><
+</td>
+<td>
+<img src="cviko3/toiv/hokus_13_50_90_2.png" style="width:550px;height:550px;">
+</td>
+</tr>
+</table>
+</UL>
+</UL>
+<br>
+<LI>Logaritmická špirála
+<pre>
+	a = randint(0,10)
+	forward = math.log10(a)
+	angle = randint(0,90)
+	for i in range(0,1000):
+		g.left(angle)
+		g.forward(math.log10(forward**i))
+</pre>
+<table>
+<tr>
+<td>
+<img src="cviko3/toiv/loghokus.png" style="width:550px;height:550px;"><
+</td>
+<td>
+<img src="cviko3/toiv/loghokus_4_71.png" style="width:550px;height:550px;">
+</td>
+</tr>
+</table>
+<br>
+<LI>Použitie tangensu vracia veľmi zložité štruktúry
+<pre>
+	a = randint(0,100)
+	forward = 100
+	angle = randint(0,180)
+	print a, angle
+	for i in range(0,100000):
+		g.left(angle*math.pi*i)
+		g.forward(math.atan(forward+i))
+</pre>
+<table>
+<tr>
+<td>
+<img src="cviko3/toiv/atan_2_105.png" style="width:550px;height:550px;"><
+</td>
+<td>
+<img src="cviko3/toiv/atan_40_9.png" style="width:550px;height:550px;">
+</td>
+</tr>
+</table>
+</UL>
+</UL>
+<LI>Cislo fi
+<pre>
+
+</pre>
+<table>
+<tr>
+<td>
+<img src="cviko3/toiv/atan_2_105.png" style="width:550px;height:550px;"><
+</td>
+<td>
+<img src="cviko3/toiv/atan_40_9.png" style="width:550px;height:550px;">
+</td>
+</tr>
+</table>
+</UL>
+</UL>
+
+</UL>
 <br><a href="#TOC">Go back to TOC</a>
 
 <a name="cviko4" /a>

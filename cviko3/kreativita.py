@@ -35,7 +35,8 @@ class Korytnacka:
       self.angle -= angle
    def right(self,angle):
       self.angle += angle
-    
+   def clear(self):
+	self.im.clean()
 
    def penup(self):
 	self.pen = 0
@@ -89,20 +90,33 @@ def loghokus():
 	g.save('test/loghokus_'+str(a)+'_'+str(angle))
 
 
-
+"""
 g = Korytnacka(500, (250,250))
-
-a = randint(0,10)
-forward = a
-angle = randint(0,90)
+golden = (1 + 5 ** 0.5) / 2
+a = randint(0,100)
+forward = 100
+angle = randint(0,180)
 print a, angle
-for i in range(0,1000):
-	g.left(math.tan(math.radians(angle+10*i)))
-	g.forward(forward)
-g.save('test/radhokus_'+str(a)+'_'+str(angle))
+for i in range(0,100000):
+	g.left(angle*math.pi*i)
+	g.forward(math.cos(forward+i))
+g.save('test/sin_'+str(a)+'_'+str(angle))
+"""
+g = Korytnacka(500, (250,250))
+golden = (1 + 5 ** 0.5) / 2
+a = randint(0,100)
+forward = math.log10(a) 
+angle = randint(0,180)
+angle = 16
+for j in range(2,100):
+	forward = math.log10(2)
+	for i in range(0,100000):
+		g.left(math.pi*i*golden)
+		g.forward(math.log10(forward+golden))
+		g.back(math.cos(forward+i))
+g.save('test/golden_'+str(a)+'_'+str(angle)+'_'+str(j))
 
-
-
+#gama 7/57
 
 
 
