@@ -76,6 +76,7 @@ def ellipse_equation(size,r,a,b):
 #y = kx +l
 #0 = k*a/2 + a*sqrt(3)/2
 #k = -sqrt3
+#mnohouholnik, pospajame ciary bodov co su zasebou
 def triangle(size,a):
 	im = Image.new('L', (size,size), 255)
 	x0 = 0
