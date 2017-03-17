@@ -108,11 +108,32 @@ def change_color(color):
 
 
 
-def distance(point1, point2):
-	return math.sqrt((point1[0]-point2[0])**2 + (point1[1]-point2[1])**2)
 
 def belongs_to(point, line):
-	if distance(line[0], point) + distance(line[1], point) <= distance(line[0],line[1])+0.005 and distance(line[0], point) + distance(line[1], point) >= distance(line[0],line[1])-0.005:
+	xA = line[0][0]
+	yA = line[0][1]
+	xB = line[1][0]
+	yB = line[1][1]
+	xC = point[0]
+	yC = point[1]
+	if (xA < xC <xB and xA < xB) or (yA < yC <yB and yA < yB) or (xB < xC <xA and xB < xA) or (yB < yC <yA and yB < yA):
+		return True
+	return False
+def find_cross_points(line, line2):
+	xA = line[0][0]
+	yA = line[0][1]
+	xB = line[1][0]
+	yB = line[1][1]
+	xC = line2[0][0]
+	yC = line2[0][1]
+	xD = line2[1][0]
+	yD = line2[1][1]
+	if ((xA-xB)*(yC-yD)-(yA-yB)*(xC-xD)) == 0 or ((xA-xB)*(yC-yD)-(yA-yB)*(xC-xD)) == 0: return True
+	xP = ((xA*yB-yA*xB)*(xC-xD)-(xA-xB)*(xC*yD-yC*xD))/((xA-xB)*(yC-yD)-(yA-yB)*(xC-xD))
+	yP = ((xA*yB-yA*xB)*(yC-yD)-(yA-yB)*(xC*yD-yC*xD))/((xA-xB)*(yC-yD)-(yA-yB)*(xC-xD))
+
+	if line[0] == line2[0] or line[1] == line2[0]: return True
+	if belongs_to((xP,yP),line) and belongs_to((xP,yP),line2): 
 		return True
 	return False
 
@@ -124,18 +145,24 @@ def polygon(size, points):
 	lines.append((points[i+1],points[0]))
 	for y in range(size):
 		color = 255
-		can = True
-		for x in range(size):
+		for x in range(size):	
+			c = 0
 			for line in lines:
-				if belongs_to((x,y),line):
-					if can:
-						print x, y, line
-						color = change_color(color)
-						can = False
-						#break
-				else:
-					can = True
-			im.putpixel((x,y),color)
+				if find_cross_points(line,((x,y),(x+2,y))):
+					c += 1
+			if c == 0:
+				im.putpixel((x,y),color)
+			if c == 1:
+				color = change_color(color)
+				im.putpixel((x,y),color)
+			if c == 2:
+				print x,y
+				if color == 255:
+					im.putpixel((x,y),0)
+				if color == 0:
+					color = change_color(color)
+					im.putpixel((x,y),color)			
+			
 	im.save('polygon.png','png')
 	
 def chess(size,size_of_square):
@@ -184,6 +211,7 @@ def chess(size,size_of_square):
 #ellipse_equation(500,20,5,3)
 #triangle(300,250)
 polygon(200,[(10, 10),(180, 20),(160, 150),(100, 50),(20, 180)])
+#polygon(200,[(10, 10),(180, 20),(160, 150)])
 #polygon(200,[(50, 50),(50, 100),(100, 100),(100,50)])
 #pruhy(150,5)
 #chess(500,18)
