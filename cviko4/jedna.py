@@ -79,16 +79,12 @@ def ellipse_equation(size,r,a,b):
 #mnohouholnik, pospajame ciary bodov co su zasebou
 def triangle(size,a):
 	im = Image.new('L', (size,size), 255)
-	x0 = 0
-	y0 = 0
+	x0 = 250
+	y0 = 50
 	y1 = y0+a
-	y2 = y1
-	x1 = x0-(a/2)
-	x2 = x0+(a/2)
-	print x1, x2
 	for x in range(size):
 		for y in range(size):
-			if y <= size+x and x >= size-y and x < 300 and y < 400:
+			if y >= -math.sqrt(3)*(x-x0) + math.sqrt(2)/3+y0 and y >= math.sqrt(3)*(x-x0)+math.sqrt(2)/3+y0 and y < y1:
 				im.putpixel((x,y),0)
 
 
@@ -152,7 +148,7 @@ def chess(size,size_of_square):
 #circle(150,50,5)
 #spiral(500,100,3)
 #ellipse_equation(500,20,5,3)
-triangle(500,100)
+triangle(500,250)
 #pruhy(150,5)
 #chess(500,18)
 
