@@ -86,7 +86,7 @@ def triangle(size,a):
 		for y in range(size):
 			if y >= -math.sqrt(3)*(x-x0) + math.sqrt(2)/3+y0 and y >= math.sqrt(3)*(x-x0)+math.sqrt(2)/3+y0 and y < y1:
 				im.putpixel((x,y),0)
-
+				
 
 	im.save('triangle.png','png')
 
@@ -104,6 +104,40 @@ def change_color(color):
 		return 0
 	else:
 		return 255
+
+
+
+
+def distance(point1, point2):
+	return math.sqrt((point1[0]-point2[0])**2 + (point1[1]-point2[1])**2)
+
+def belongs_to(point, line):
+	if distance(line[0], point) + distance(line[1], point) <= distance(line[0],line[1])+0.005 and distance(line[0], point) + distance(line[1], point) >= distance(line[0],line[1])-0.005:
+		return True
+	return False
+
+def polygon(size, points):
+	im = Image.new('L',(size,size))
+	lines = []
+	for i in range(0,len(points)-1):
+		lines.append((points[i], points[i+1]))
+	lines.append((points[i+1],points[0]))
+	for y in range(size):
+		color = 255
+		can = True
+		for x in range(size):
+			for line in lines:
+				if belongs_to((x,y),line):
+					if can:
+						print x, y, line
+						color = change_color(color)
+						can = False
+						#break
+				else:
+					can = True
+			im.putpixel((x,y),color)
+	im.save('polygon.png','png')
+	
 def chess(size,size_of_square):
 	im = Image.new('L',(size,size))
 	color = 0
@@ -148,7 +182,9 @@ def chess(size,size_of_square):
 #circle(150,50,5)
 #spiral(500,100,3)
 #ellipse_equation(500,20,5,3)
-triangle(500,250)
+#triangle(300,250)
+polygon(200,[(10, 10),(180, 20),(160, 150),(100, 50),(20, 180)])
+#polygon(200,[(50, 50),(50, 100),(100, 100),(100,50)])
 #pruhy(150,5)
 #chess(500,18)
 
