@@ -30,34 +30,19 @@ def generate_lines(n):
 		x = randint(1,size)
 		y = randint(1,size)
 		line = make_line(x,y,size,length)
-		
 		lines.append(line)
 	return lines
 
-def belongs_to(point, line):
-	xA = line[0]
-	yA = line[1]
-	xB = line[2]
-	yB = line[3]
-	xC = point[0]
-	yC = point[1]
+def belongs_to((xC, yC), (xA, yA, xB, yB)):
 	if (xA < xC <xB and xA < xB) or (yA < yC <yB and yA < yB) or (xB < xC <xA and xB < xA) or (yB < yC <yA and yB < yA):
-		return 1
-	return 0
-def find_cross_points(line1, line2):
-	xA = line1[0]
-	yA = line1[1]
-	xB = line1[2]
-	yB = line1[3]
-	xC = line2[0]
-	yC = line2[1]
-	xD = line2[2]
-	yD = line2[3]
+		return True
+	return False
+
+def find_cross_points((xA,yA,xB,yB), (xC,yC,xD,yD)):
 	if ((xA-xB)*(yC-yD)-(yA-yB)*(xC-xD)) == 0 or ((xA-xB)*(yC-yD)-(yA-yB)*(xC-xD)) == 0: return None 
 	xP = ((xA*yB-yA*xB)*(xC-xD)-(xA-xB)*(xC*yD-yC*xD))/((xA-xB)*(yC-yD)-(yA-yB)*(xC-xD))
 	yP = ((xA*yB-yA*xB)*(yC-yD)-(yA-yB)*(xC*yD-yC*xD))/((xA-xB)*(yC-yD)-(yA-yB)*(xC-xD))
-	if belongs_to((xP,yP),line1) and belongs_to((xP,yP),line2): 
-		return (xP,yP)
+	if belongs_to((xP,yP), (xA,yA,xB,yB)) and belongs_to((xP,yP),(xC,yC,xD,yD)): return (xP,yP)
 	
 
 def find_all_cross_points(lines):
