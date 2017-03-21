@@ -44,41 +44,61 @@ def generate_sorted_lines(points):
 	lines.sort(key=get_length)
 	return lines
 
+#ked y bodu 2 je mensia ako y bodu 1: x/y
+#ked ybodu 2 je vacsia ako y bodu 1: y/x
+#math.degrees(math.atan(abs(point[1]-y)/abs(point[0]-x)))+90
+ # 2D cross product of OA and OB vectors, i.e. z-component of their 3D cross product.
+ # Returns a positive value, if OAB makes a counter-clockwise turn,
+def cross(o, a, b):
+	return (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0])
 def nice_point((x,y), points):
-	good_point = (points[0][0], points[0][1])
-	ratio = abs(points[0][0]-x)/abs(points[0][1]-y)
-	print abs(points[0][0]-x)
-	print abs(points[0][1]-y)
-	print ratio
-	angle = math.tan(math.radians(0.75))
-	print angle
-	print points
-	print (x,y)
+	points.remove((x,y))
+	good_point = points[0]
+	c = cross((x,y), (x,y+10), good_point)
+	#if (good_point[1] > y and good_point[0] > x) or (good_point[1] < y and good_point[0] < x):
+	#	c = math.degrees(math.atan(abs(good_point[0]-x)/abs(good_point[1]-y)))
+	#else:
+	#	c = math.degrees(math.atan(abs(good_point[1]-y)/abs(good_point[0]-x)))+90
+	print 'kokotpica'	
+	#print (x,y)
 	for point in points:
-		#print point
-		print abs(point[0]-x)/abs(point[1]-y)
-		if abs(point[0]-x)/abs(point[1]-y) < ratio:
-			ratio = abs(point[0]-x)/abs(point[1]-y)
-			good_point = (point[0],point[1])
+		print point
+		print cross((x,y), (x,y+10), point)
+		if cross((x,y), (x,y+10), point) < 0 and cross((x,y), (x,y+10), point) > c:
+		#if (point[1] > y and point[0] > x) or (point[1] < y and point[0] < x):
+		#	angle = math.degrees(math.atan(abs(point[0]-x)/abs(point[1]-y)))
+		#else:
+		#	angle = math.degrees(math.atan(abs(point[1]-y)/abs(point[0]-x)))+90
+		#print angle
+		#if angle < c:
+			good_point = point
+			c = cross((x,y), (x,y+10), point)
+		#	c = angle
+
 	print good_point
 	return good_point
 
-points = generate_points(5)
+points = generate_points(10)
 points.sort(key=lambda (x,y): x)
 
-points = [(36, 244), (77, 344), (143, 257), (250, 164), (269, 347)]
+points = [(36, 244), (77, 344), (143, 257), (250, 164), (300, 400)]
+td = points[:]
 points_on_edge = [points[0]]
 current_point = points[0]
-first_point = current_point
+#points.append(current_point)
+#first_point = current_point
+#points.remove(first_point)
+#print points
 draw_p(points)
-points.remove(first_point)
+
 for i in range(0,4):
-	new_point = nice_point(current_point, points[:])
-	current_point = new_point
-	points.remove(new_point)
-	points_on_edge.append(new_point)
+	#points.remove(current_point)
+	current_point = nice_point(current_point, points[:])
+	points_on_edge.append(current_point)
+	print points
+
 print points_on_edge
-draw_it([(36, 244), (77, 344), (143, 257), (250, 164), (269, 347)], points_on_edge)
+draw_it(td, points_on_edge)
 	
 
 
