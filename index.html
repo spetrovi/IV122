@@ -40,7 +40,7 @@
   <LI> A) Generovanie kombinácií, variácií a permutácií, B) Pascalov trojuholník, C) Približné umocňovanie
   <LI> A) Knžnica pre korytnačiu grafiku, B) Absolútne/Relatívne vykreslovanie, C) Koryrnačia grafika a fraktály, D) Kreativita korytnačky
   <LI> A) Obrazce, B) Polygón, C) Efekty, Bonus) Skrývačky
-  <LI> A) Priesečníky úsečiek
+  <LI> A) Priesečníky úsečiek, B) Triangulácia, C) Konvexný obal
   <LI> A) Chaos game, L-systémy
 </UL>
 
@@ -102,7 +102,7 @@
 
 <a name="cviko2" /a>
 <DT><STRONG>Cvičenie 2</STRONG>
-<DT>A) Kombinatorika:
+<DT>A) <a href="cviko2/kombinatorika.py">Kombinatorika</a>
 <LI> Kombinácie
 <UL>
 <pre>
@@ -166,7 +166,7 @@ def variations_repeat(lis, k):
 	return result
 </pre>
 </UL>
-<DT>B) Pascalov trojuholník
+<DT>B) <a href="cviko2/pascalov_trojuholnik.py">Pascalov trojuholník</a>
 <LI>Pomalá metóda: pre každé políčko sa samostatne vypočíta kombinačné číslo.
 <UL>
 <pre>
@@ -240,13 +240,15 @@ def quick_rows(n):
 </table>
 </UL>
 </UL>
+<DT>C) <a href="cviko2/umocnovanie.py">Umocňovanie</a>
+<LI>popis popispopis
 
 <br><a href="#TOC">Go back to TOC</a>
 
 <a name="cviko3" /a>
 
 <DT><STRONG>Cvičenie 3</STRONG>
-<DT>B) Absolútna/relatívna grafika
+<DT>B) <a href="cviko3/obrazce.py">Absolútna/relatívna grafika</a>
 <UL>
 <LI>Pentagram absolútne
 <UL>
@@ -376,7 +378,7 @@ def penrose(size, fineness):
 
 </UL>
 
-<DT>C) Korytnačia grafika a fraktály:
+<DT>C) <a href="cviko3/fraktaly.py">Korytnačia grafika a fraktály</a>
 <UL>
 <LI> Pythagorov stromček
 <UL><LI><img src="cviko3/tree.png" style="width:400px;height:400px;"></UL>
@@ -388,7 +390,7 @@ def penrose(size, fineness):
 <UL><LI><img src="cviko3/pentaflake.png" style="width:400px;height:400px;"></UL>
 </UL>
 
-<DT>D) Kreativita s korytnačkou
+<DT>D) <a href="cviko3/kreativita.py">Kreativita s korytnačkou</a>
 <UL>
 <LI>Postupoval som ako bolo povedané na cviku: Vybral som si nejaké ťahy, ktoré som nechal opakovať 1000 krát a upravoval som parametre tak aby sa mi výsledok páčil
 <UL>
@@ -473,7 +475,7 @@ def star():
 <a name="cviko4" /a>
 <DT><STRONG>Cvičenie 4</STRONG>
 <UL>
-<LI>A) Obrazce
+<LI>A) <a href="cviko4/polygon.py">Obrazce</a>
 <table>
 <tr>
 <td>
@@ -494,10 +496,10 @@ def star():
 </tr>
 </table>
 <br>
-<LI>B) Polygón. Pre každý riadok sa vypočítajú priesečníky s úsečkami. Ak (x,y) je priesečník, zmení sa farba vykreslovania
+<LI>B) <a href="cviko4/polygon.py">Polygón</a>. Pre každý riadok sa vypočítajú priesečníky s úsečkami. Ak (x,y) je priesečník, zmení sa farba vykreslovania
 <UL><LI><img src="cviko4/polygon.png" style="width:250px;height:250px;"></UL>
 <br>
-<LI>C) Efekty
+<LI>C) <a href="cviko4/efekty.py">Efekty</a>
 <table>
 <tr>
 <td>
@@ -523,7 +525,7 @@ def star():
 </tr>
 </table>
 <br>
-<LI>BONUS) Skrývačky:
+<LI>BONUS) <a href="cviko4/skryvacky.py">Skrývačky</a>:
 <UL>
 <LI> 
 <UL><LI><img src="cviko4/orel.png" style="width:499px;height:137px;"></UL>
@@ -535,15 +537,15 @@ def star():
 
 <a name="cviko5" /a>
 <DT><STRONG>Cvičenie 5</STRONG>
-<DT>A) Priesečníky úsečiek:
+<DT>A) <a href="cviko5/lines.py">Priesečníky úsečiek</a>
 <UL>
 <LI><img src="cviko5/lines.png" style="width:500px;height:500px;">
 </UL>
-<DT>B) Triangulácia:
+<DT>B) <a href="cviko5/triangulation.py">Triangulácia</a>
 <UL>
 <LI><img src="cviko5/triangulation.png" style="width:500px;height:500px;">
 </UL>
-<DT>B) Konvexný obal:
+<DT>B) <a href="cviko5/konvex.py">Konvexný obal</a>
 <UL>
 <LI><img src="cviko5/konvex.png" style="width:500px;height:500px;">
 </UL>

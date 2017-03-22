@@ -6,28 +6,10 @@ from PIL import Image, ImageDraw
 from kombinatorika import combinations
 
 def draw_square(pos, size, square):
+	colors = [(255,0,0), (0,0,255), (0,255,0), (0,255,255), (255,0,255), (125,0,125), (255,125,125), (0,125,125), (50,125,0)]
 	for x in range(pos[0]-size/2, pos[0]+size/2):
 		for y in range(pos[1]-size/2, pos[1]+size/2):
-			product = square % 9
-			if product == 1:
-				color = (0,0,255)
-			if product == 2:
-				color = (0,255,0)
-			if product == 3:
-				color = (0,255,255)
-			if product == 4:
-				color = (255,0,255)
-			if product == 0:
-				color = (255,0,0)
-			if product == 5:
-				color = (125,0,125)
-			if product == 6:
-				color = (255,125,125)
-			if product == 7:
-				color = (0,125,125)
-			if product == 8:
-				color = (50,125,0)
-			pixels[x,y] = color
+			pixels[x,y] = colors[square%9]
 
 def slow_rows(n):
 	result = []
