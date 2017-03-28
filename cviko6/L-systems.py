@@ -1,26 +1,7 @@
 from PIL import Image
-from random import choice,randint
+#from random import choice,randint
 from cviko3T import Korytnacka
 import math
-
-
-
-def chaos_game(n):
-	size = 301
-	c = -1
-	im = Image.new('L',(size,size),255)
-	points = [(int(math.cos(2*math.pi/n*x)*(size/2))+(size/2),int(math.sin(2*math.pi/n*x)*(size/2))+(size/2)) for x in xrange(0,n)]
-	point = (randint(0,300),randint(0,300))
-	for i in range(2000):
-		abc_point = choice(points)
-		point = ((point[0] + abc_point[0])/5, (point[1] + abc_point[1])/5)
-		if i > 100:
-			im.putpixel(point,0)
-		if i % 100 == 0:
-			c+=1
-			#im.save('./chaos/'+str(c)+'.png','png')
-	im.show()
-
 
 class Lsystem:
    def __init__(self, axiom, rules,angle,level,start_position,start_angle,length):
@@ -93,11 +74,9 @@ class Lsystem:
 	
    def display(self):
 	self.g.display() 
+
    def save(self,name):
 	self.g.save(name)
-
-
-#g.display()
 
 #l = Lsystem('A',['F F F','A F [ - A ] + A'],45,7,(350,600),90,5)
 #l = Lsystem('F - - F - - F', ['F F + F - - F + F'],60,4,(150,450),0,5)#koch
@@ -120,8 +99,8 @@ l.evaluate_string()
 l.grow_it()
 l.draw_it()
 l.display()
-l.save('./cviko6/plant')
-#chaos_game(6)
+l.save('./plant')
+#
 
 
 
