@@ -7,8 +7,8 @@ size = 600
 
 im = Image.new('RGB', (size, size))
 
-x = (-2,1)
-y = (-1.5,1.5)
+x = (-0.0,0.5)
+y = (-0.9,-0.4)
 
 x = np.linspace(x[0],x[1], size, endpoint=False)
 y = np.linspace(y[0],y[1], size, endpoint=False)
