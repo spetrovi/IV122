@@ -43,20 +43,20 @@ def draw_figure(r,show):
 		plt.show()
 	return pointsy[100:]
 
-xzoom1 = 0.65
-xzoom2 = 1.0
-r = 0.8
-draw_figure(r,True)
-#for xzoom1 in np.arange(0.65,1.0,0.01):
-plt.figure(3)
-fineness = int(str(xzoom1).split('.')[1][:1])-2
-print fineness
-for r in np.arange(xzoom1,1.0,10**(-fineness)):
-	result = draw_figure(r,False)
-	plt.plot([r for i in range(len(result))], result, marker=',',lw=0, linestyle='', color='black')
-#plt.show()
+def draw_feingen(x1,x2,y2):
+	for r in np.linspace(x1,x2, 2000, endpoint=False):
+		result = draw_figure(r,False)
+		plt.plot([r for i in range(len(result))], result, marker=',',lw=0, linestyle='', color='black')
+		plt.ylim = y2
+	#plt.show()
+	
+	plt.savefig('./feingen/2.png')
+	plt.close()
 
-plt.savefig('fiegen/'+str(xzoom1)+'.png')
-plt.close()
-
+x1 = 0.65
+x2 = 0.8
+y1 = 0.4
+y2 = 1000
+#for xzoom in np.linspace(0.65,1.0, 100, endpoint=False):
+draw_feingen(x1,x2,y2)
 

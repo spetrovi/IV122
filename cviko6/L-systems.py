@@ -1,6 +1,6 @@
 from PIL import Image
 #from random import choice,randint
-from cviko3T import Korytnacka
+from obrazce import Korytnacka
 import math
 
 class Lsystem:
@@ -94,12 +94,13 @@ class Lsystem:
 #l = Lsystem('X',['X + Y F - X F X - F Y +','Y - X F + Y F Y + F X -','F F'],90,7,(30,30),0,5)#hilbert
 #l = Lsystem('X',['X F [ + X ] F [ - X ] + X ','F F F'],20,6,(350,660),90,5) #plant4
 #l = Lsystem('X',['X F [ + X ] [ - X ] F X','F F F'],25.7,6,(350,660),90,5) #plant5
-l = Lsystem('F',['F F [ + F ] F [ - F ] [ F ]'],20,5,(350,660),90,10) #plant6
+#l = Lsystem('F',['F F [ + F ] F [ - F ] [ F ]'],20,5,(350,660),90,10) #plant6
+l = Lsystem('F + F + F + F',['F F F + F + + F + F'],80,5,(400,400),0,10)#crystal
 l.evaluate_string()
 l.grow_it()
 l.draw_it()
 l.display()
-l.save('./plant')
+l.save('./exp1')
 #
 
 
