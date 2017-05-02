@@ -42,7 +42,9 @@
   <LI> A) Obrazce, B) Polygón, C) Efekty, Bonus) Skrývačky
   <LI> A) Priesečníky úsečiek, B) Triangulácia, C) Konvexný obal
   <LI> A) Chaos game, B) L-systémy, C) Feinbaumov diagram
-  <LI> B) Mandelbrotova mnozina, C) Juliove mnoziny
+  <LI> B) Mandelbrotova množina, C) Juliove množiny
+  <LI> A) Transformácie, C) MRCM
+  <LI> A) Monty Hall, B) Analýza postupností
 </UL>
 
   <DT> <STRONG>Slabé stránky</STRONG>
@@ -54,6 +56,8 @@
   <LI>5)
   <LI>6)
   <LI>7) Newtonov fraktal
+  <LI>8)
+  <LI>9) Centralna limitna veta
 </UL>
 
 
@@ -75,6 +79,8 @@
 <tr><td nowrap><LI><a href="#cviko5">Cvičenie 5</a></td></tr>
 <tr><td nowrap><LI><a href="#cviko6">Cvičenie 6</a></td></tr>
 <tr><td nowrap><LI><a href="#cviko7">Cvičenie 7</a></td></tr>
+<tr><td nowrap><LI><a href="#cviko7">Cvičenie 8</a></td></tr>
+<tr><td nowrap><LI><a href="#cviko7">Cvičenie 9</a></td></tr>
 </table>
 <br>
 <br>
@@ -244,7 +250,9 @@ def quick_rows(n):
 </UL>
 </UL>
 <DT>C) <a href="cviko2/umocnovanie.py">Umocňovanie</a>
-<LI>popis popispopis
+<pre>
+
+</pre>
 
 <br><a href="#TOC">Go back to TOC</a>
 
@@ -656,17 +664,76 @@ def star():
 
 <a name="cviko7" /a>
 <DT><STRONG>Cvičenie 7</STRONG>
-<DT>A) <a href="cviko7/mandelbrot.py">Mandelbrotova mnozina</a>
+<DT>B) <a href="cviko7/mandelbrot.py">Mandelbrotova množina</a>
 <UL>
 <LI><img src="cviko7/mandel_kvadranty.png" style="width:500px;height:500px;">
 <LI><img src="cviko7/mandel_k.png" style="width:500px;height:500px;">
 </UL>
-<DT>A) <a href="cviko7/julian.py">Juliove mnoziny</a>
+<DT>C) <a href="cviko7/julian.py">Juliove množiny</a>
 <UL>
 <LI><img src="cviko7/jul/0.png" style="width:500px;height:500px;">
 <LI><img src="cviko7/jul/4.png" style="width:500px;height:500px;">
 </UL>
 
+<a name="cviko8" /a>
+<DT><STRONG>Cvičenie 8</STRONG>
+<DT>A) <a href="cviko8/1.py">Transformácie</a>
+<table>
+<tr>
+<td>
+<img src="cviko8/demo1.png" style="width:400px;height:400px;">
+</td>
+<td>
+<img src="cviko8/demo2.png" style="width:400px;height:400px;">
+</td>
+<td>
+<img src="cviko8/demo3.png" style="width:400px;height:400px;">
+</td>
+</tr>
+</table>
+<DT>B) <a href="cviko8/2.py">Multi reduction copy machine</a>
+
+
+<br><a href="#TOC">Go back to TOC</a>
+
+<a name="cviko9" /a>
+<DT><STRONG>Cvičenie 9</STRONG>
+<DT>A) <a href="cviko9/monty.py">Monty Hall</a>
+<UL>
+<pre>
+from random import choice 
+
+def play_game(strategy):
+	_list = [0,1,2]
+	treasure_door = choice(_list) #there is a treasure behind one door
+	chosen_door = choice(_list) #player chooses one door
+	_list.remove(treasure_door)
+	if treasure_door != chosen_door: _list.remove(chosen_door)
+	remaining_door = _list[0] #game master opens unchosen door without treasure	
+	_list = [0,1,2]
+	_list.remove(remaining_door)
+	if strategy == 'stay':
+		if chosen_door == treasure_door: return 1
+		else: return 0
+	if strategy == 'change':
+		if chosen_door != treasure_door: return 1
+		else: return 0
+
+_list = []
+for i in range(0,10000):
+	_list.append(play_game('stay'))
+print _list.count(1)
+
+
+_list = []
+for i in range(0,10000):
+	_list.append(play_game('change'))
+print _list.count(1)
+</pre>
+</UL>
+<DT>B) <a href="cviko9/nah.py">Analýza postupností</a>
+<UL>
+<LI>Postupnosť 2, histogram pre jednotlivé čísla (1-6): [ 855,  428,  829,  845, 1244,  798]. Počet dvojok je príliš nízky. Počet pätiek je príliš vysoký-
 <br><a href="#TOC">Go back to TOC</a>
 
 

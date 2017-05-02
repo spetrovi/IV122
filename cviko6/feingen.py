@@ -45,7 +45,7 @@ def draw_figure(r,show):
 
 def draw_feingen(x1,x2,y2):
 	for r in np.linspace(x1,x2, 2000, endpoint=False):
-		result = draw_figure(r,False)
+		result = draw_figure(r,True)
 		plt.plot([r for i in range(len(result))], result, marker=',',lw=0, linestyle='', color='black')
 		plt.ylim = y2
 	#plt.show()
