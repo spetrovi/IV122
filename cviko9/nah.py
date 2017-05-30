@@ -8,7 +8,7 @@ f.close()
 s2 = map(lambda x: int(x), s2)
 #print np.histogram(s2, bins=6)
 
-print 'Sequence'
+print 'Sequence1'
 f = open('random1.txt','r')
 s1 = f.read().split(' ')[:-1]
 s1 = map(lambda x: int(x), s1)
