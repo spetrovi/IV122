@@ -6,7 +6,7 @@ f = open('random2.txt','r')
 s2 = f.read().split(' ')[:-1]
 f.close()
 s2 = map(lambda x: int(x), s2)
-#print np.histogram(s2, bins=6)
+print np.histogram(s2, bins=[1,2,3,4,5,6,7])
 
 print 'Sequence1'
 f = open('random1.txt','r')
@@ -24,7 +24,4 @@ for stat in stats:
 	print np.histogram(stat, bins=[1,2,3,4,5,6,7])
 
 
-#5 ma prilis vela sesiek
-#6 ma prilis vela sesiek
-#7 ma prilis vela sesiek
 
