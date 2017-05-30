@@ -765,8 +765,8 @@ print _list.count(1)
 <li>2: 5 a ...
 <li>3: 4 a 5
 <li>4: 1 a 5
-<li>1: 3 a 5
-<li>1: 2 a 5
+<li>5: 3 a 5
+<li>6: 2 a 5
 <pre>
 (array([ 35,  41,  36,  40, 102, 553]), array([1, 2, 3, 4, 5, 6, 7]))
 (array([108, 102,  93, 118, 299, 116]), array([1, 2, 3, 4, 5, 6, 7]))
@@ -774,6 +774,21 @@ print _list.count(1)
 (array([560,  49,  45,  43, 106,  40]), array([1, 2, 3, 4, 5, 6, 7]))
 (array([ 43,  44, 551,  49, 115,  39]), array([1, 2, 3, 4, 5, 6, 7]))
 (array([ 33, 557,  51,  41, 118,  59]), array([1, 2, 3, 4, 5, 6, 7]))
+<pre>
+<li> Postupnosť 6, Po každom čísle ide s velkou pravdepodobnosťou jedno číslo
+<li>1: 4
+<li>2: 1
+<li>3: 3
+<li>4: 5
+<li>5: 2
+<li>6: Na 6 sa efekt neprejavuje, ale je podozrive, ze 1, 4, 5 a 6 nasleduje po 6 rovnaky pocet
+<pre>
+(array([ 94, 142, 142, 188, 141, 142]), array([1, 2, 3, 4, 5, 6, 7]))
+(array([189, 142, 141, 141, 142,  95]), array([1, 2, 3, 4, 5, 6, 7]))
+(array([142, 141, 189, 141,  95, 141]), array([1, 2, 3, 4, 5, 6, 7]))
+(array([141, 141, 141,  94, 188, 141]), array([1, 2, 3, 4, 5, 6, 7]))
+(array([142, 189,  94, 141,  95, 142]), array([1, 2, 3, 4, 5, 6, 7]))
+(array([141,  95, 142, 141, 141, 141]), array([1, 2, 3, 4, 5, 6, 7]))
 <pre>
 </ul>
 

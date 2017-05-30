@@ -2,7 +2,7 @@ from random import choice
 import numpy as np
 
 print 'Sequence1'
-f = open('random5.txt','r')
+f = open('random6.txt','r')
 s1 = f.read().split(' ')[:-1]
 s1 = map(lambda x: int(x), s1)
 f.close()
