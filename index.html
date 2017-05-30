@@ -43,8 +43,11 @@
   <LI> A) Priesečníky úsečiek, B) Triangulácia, C) Konvexný obal
   <LI> A) Chaos game, B) L-systémy, C) Feinbaumov diagram
   <LI> B) Mandelbrotova množina, C) Juliove množiny
-  <LI> A) Transformácie, C) MRCM
-  <LI> A) Monty Hall, B) Analýza postupností
+  <LI> A) Transformácie
+  <LI> A) Monty Hall, B) Analýza postupností, D) Bayesova veta a simulácia
+  <LI> B) Detekcia zhlukov
+  <LI> A) Číselné bludisko, B) Robot v bludisku
+  <LI> Z dôvodu dokončovania Bakalárskej práce som sa nemohol venovať poslednej iterácií úloh. Prosím o ospravedlnenie.
 </UL>
 
   <DT> <STRONG>Slabé stránky</STRONG>
@@ -52,12 +55,15 @@
   <LI>1) Vizualizácia NSD
   <LI>2) Výpočet pí
   <LI>3) 
-  <LI>4) Vyfarbovanie obrázkov
+  <LI>4)
   <LI>5)
   <LI>6)
-  <LI>7) Newtonov fraktal
-  <LI>8)
-  <LI>9) Centralna limitna veta
+  <LI>7) Newtonov fraktál
+  <LI>8) MRCM
+  <LI>9) Centrálna limitná veta
+  <LI>10) Lineárna regresia
+  <LI>11) 
+  <LI>12) Generovanie bludiska 
 </UL>
 
 
@@ -81,6 +87,8 @@
 <tr><td nowrap><LI><a href="#cviko7">Cvičenie 7</a></td></tr>
 <tr><td nowrap><LI><a href="#cviko7">Cvičenie 8</a></td></tr>
 <tr><td nowrap><LI><a href="#cviko7">Cvičenie 9</a></td></tr>
+<tr><td nowrap><LI><a href="#cviko7">Cvičenie 10</a></td></tr>
+<tr><td nowrap><LI><a href="#cviko7">Cvičenie 11</a></td></tr>
 </table>
 <br>
 <br>
@@ -734,8 +742,329 @@ print _list.count(1)
 <DT>B) <a href="cviko9/nah.py">Analýza postupností</a>
 <UL>
 <LI>Postupnosť 2, histogram pre jednotlivé čísla (1-6): [ 855,  428,  829,  845, 1244,  798]. Počet dvojok je príliš nízky. Počet pätiek je príliš vysoký-
-<br><a href="#TOC">Go back to TOC</a>
+</ul>
+
+<DT>D) <a href="cviko9/nah.py">Bayesova veta a simulacia</a>
+<UL>
+<LI>Implementáia Bayesovej vety pre daný problem
+<pre>
+#PN: Pravdepodobnost, ze kocka bude falosna
+#PP: Pravdepodobnost, ze kocka bude prava
+#PVN: Pravdepodobnost k sestiek za predpokladu, ze kocka je falosna
+#PVP: Pravdepodobnost k sestiek za predpokladu, ze kocka je prava
+def bayes_calc(n,k):
+	PN = 1.0/n
+	PP = 1.0-PN
+	PVP = 1.0/6**k
+	PVN = 1.0
+	return (PVP*PP)/(PVP*PP+PVN*PN)
+<pre>
+<li> Impelemtácia simulácie problmému
+<pre>
+#Jedna iteracia pokusu
+def bayes_iteration(n,k):
+	box = [True for x in range(1,n)]+[False]
+	random.shuffle(box)
+	dice = random.choice(box)	
+	if dice:
+		stat = [random.randint(1,6) for x in range(k)]
+	if not dice:
+		stat = [6 for x in range(k)]
+	if stat == [6 for x in range(k)]:
+		return True, dice
+	else: return False, dice
+
+#Obal pre mnoho pokusov
+def bayes(n, k, statistics = 10000):
+	nice, rigged = 0, 0, 0
+	for i in range(statistics): #dalo by sa spravit presnejsie, ale zato s vyssim casom
+		success, dice = bayes(n,k)
+		if success and dice:
+			nice += 1
+		if success and not dice:
+			rigged += 1
+	return nice/float(nice+rigged) 
+<pre>
+<li>Pokus n 10, k 5. 
+<li>Odhad: Pravdepodobnosť výberu falošnej kocky je celkom vysoká a pravdepodobnosť 5x6 za sebou celkom nízka, to znamená, že číslo bude pravdepodobne nízke, do 0.1.
+<li>Výsledok simulácie: 0.00422832980973
+<li>Výsledok výpočtu: 0.00115606936416
+
+<li>Pokus n 100, k 3. 
+<li>Odhad: Pravdepodobnosť výberu falošnej kocky bude 1/100 a pravdepodobnosť hodu 3x6 za sebou je stále menšia. Odhadujem výsledok +-0.3.
+<li>Výsledok simulácie: 0.308641975309
+<li>Výsledok výpočtu: 0.314285714286
+
+<li>Pokus n 1000, k 5. 
+<li>Odhad: Pravdepodobnosť výberu falošnej kocky je 1/1000 a pravdepodobnosť 5x6 za sebou je síce celkom nízka, ale už o mnoho bližšie pravdepodobnosti výberu falošnej kocky. Predpokladám tak do 0.05
+<li>Výsledok simulácie: 0.214285714286
+<li>Výsledok výpočtu: 0.113846153846
 
 
+</ul>
+
+
+<a href="#TOC">Go back to TOC</a>
+<br>
+<br>
+<a name="cviko10" /a>
+<DT><STRONG>Cvičenie 10</STRONG>
+<DT>A) <a href="cviko10/clusters.py">Detekcia zhlukov</a>
+<UL>
+<li>
+<pre>
+def distance((x1,y1),(x2,y2)):
+	return math.sqrt((x2-x1)**2+(y2-y1)**2)
+
+def assign((x,y), centers):
+	assigned = {}
+	for center in centers:
+		assigned[center] = []
+
+	for i in range(len(x)):
+		distances = []
+		for (xc, yc, color) in centers:
+			distances.append(distance((x[i],y[i]),(xc,yc)))
+		assigned[centers[distances.index(min(distances))]].append((x[i],y[i]))
+	return assigned
+
+def update_centers(assigned):
+	updated_centers = []
+
+	for (xc, yc, i), p_list in assigned.items():
+		if p_list:
+ 			x = int(np.mean(map(lambda x: x[0],p_list)))
+			y = int(np.mean(map(lambda x: x[1],p_list)))
+			updated_centers.append((x, y, i))
+		else:updated_centers.append((xc, yc, i))
+	updated_centers.sort()
+	return updated_centers
+
+		
+def clusters((x,y), original, k, noise, size=100,):
+	centers = [(random.randint(0,size), random.randint(0,size), i) for i in range(k)]
+#	centers = [(size/2+random.randint(0,20), size/2+random.randint(0,20)) for i in range(k)]
+	print centers
+	centers_old = None
+	i = 0
+	while centers_old != centers:
+		centers_old = centers
+		assigned = assign((x,y), centers)	
+		show_clusters(assigned, i, original, size, noise)
+		centers = update_centers(assigned)
+		i += 1
+	return i #number of iterations
+
+</pre>
+<li>Pribeh hladania zhlukov. Krížiky predstavujú pôvodné body, trojuholníky predpokladané centrá. V prvej rade sú pôvodné body generované ne kružnici, v druhej náhodne.
+<table>
+<tr>
+<td>
+<img src="cviko10/circle/cluster_0.png" style="width:400px;height:300px;">
+</td>
+<td>
+<img src="cviko10/circle/cluster_1.png" style="width:400px;height:300px;">
+</td>
+<td>
+<img src="cviko10/circle/cluster_2.png" style="width:400px;height:300px;">
+</td>
+<td>
+<img src="cviko10/circle/cluster_3.png" style="width:400px;height:300px;">
+</td>
+<td>
+<img src="cviko10/circle/cluster_4.png" style="width:400px;height:300px;">
+</td>
+
+</tr>
+
+<tr>
+<td>
+<img src="cviko10/random/cluster_1.png" style="width:400px;height:300px;">
+</td>
+<td>
+<img src="cviko10/random/cluster_2.png" style="width:400px;height:300px;">
+</td>
+<td>
+<img src="cviko10/random/cluster_3.png" style="width:400px;height:300px;">
+</td>
+<td>
+<img src="cviko10/random/cluster_4.png" style="width:400px;height:300px;">
+</td>
+<td>
+<img src="cviko10/random/cluster_5.png" style="width:400px;height:300px;">
+</td>
+<td>
+<img src="cviko10/random/cluster_6.png" style="width:400px;height:300px;">
+</td>
+<td>
+<img src="cviko10/random/cluster_7.png" style="width:400px;height:300px;">
+</td>
+</tr>
+</table>
+<br>
+<li> Počet krokov pre dosiahnutie konvergencí pre 1 až 9 bodov vytvorených na kružnici (prva rada) alebo nahodne (druha rada). Stlpce predstavuju mieru sumu, z lava do prava 10, 20 a 30.
+<table>
+<tr>
+<td>
+<img src="cviko10/exp/circlek_noise10.png" style="width:400px;height:300px;">
+</td>
+<td>
+<img src="cviko10/exp/circlek_noise20.png" style="width:400px;height:300px;">
+</td>
+<td>
+<img src="cviko10/exp/circlek_noise30.png" style="width:400px;height:300px;">
+</td>
+
+
+</tr>
+
+<tr>
+<td>
+<img src="cviko10/exp/randomk_noise10.png" style="width:400px;height:300px;">
+</td>
+<td>
+<img src="cviko10/exp/randomk_noise20.png" style="width:400px;height:300px;">
+</td>
+<td>
+<img src="cviko10/exp/randomk_noise30.png" style="width:400px;height:300px;">
+</td>
+</table>
+</ul>
+<a href="#TOC">Go back to TOC</a>
+<br>
+<br>
+<a name="cviko11" /a>
+<DT>A) <a href="cviko11/nummaze.py">Numerické bludisko</a>
+<UL>
+<li> Riešička vie pre každé políčko bludiska zistiť možné ťahy. Takýmto spôsobom sa vygeneruje graf. Vrcholy sú políčka. Hrana je medzi vrcholmi ak existuje z jedného do druhého políčka možný ťah. Nad týmto grafom sa spúšta Djikstra stiahnutý z internetu. Počet najkratších ciest sa vykonáva odmazávaním najkratších ciest a opätovným riešením.
+<pre>
+class numMaze:
+   def __init__(self,matrix):
+      self.size = len(matrix)
+      self.x = 0
+      self.y = 0
+      self.matrix = matrix
+      self.graph = self.make_graph()
+      
+   def go_to(self, position):
+	self.x = position[0]
+	self.y = position[1]
+
+   def possible_moves(self,x,y):
+	number = self.matrix[x][y]
+	positions = [(x+number,y),(x-number,y),(x,y+number),(x,y-number)]	
+	positions = filter(lambda x: x[0]>-1 and x[0] (v) self.size and x[1] (v)-1 and x[1] (v) self.size, positions)
+	return positions
+
+   def make_graph(self):
+	graph = {}
+	for i in range(0,self.size):
+		for j in range(0,self.size):
+			node = (i,j)
+			moves = self.possible_moves(i,j)
+			newDict = {}
+			for move in moves:
+				newDict.update({move:1})
+			graph[node] = newDict
+	return graph
+
+   def solve(self):	
+	return shortestPath(self.graph,(0,0),(self.size-1,self.size-1))
+	
+   def is_unique(self):	
+	P = self.solve()
+	length = len(P)
+	print P
+	for i in range(0,length-1):
+		del self.graph[P[i]][P[i+1]]
+	try:
+		P = shortestPath(self.graph,(0,0),(self.size-1,self.size-1))
+	except KeyError:
+		print 'This solution is the only path'
+		return 1
+	if length == len(P):
+		print 'This solution is not the only shortest path'
+		return 0
+	print 'This solution is the only shortest path'
+	return 1
+<pre>
+</ul>
+<br>
+<DT>B) <a href="cviko11/robomaze.py">Robot v bludisku</a>
+<UL>
+<li> Riešička vytvára graf. Vrcholy sú trojice X, Y, rotácia. Pomocou počítania možných ťahov sa generujú hrany. Na riešenie je opäť použitý Djikstra z internetu.
+<pre>
+class robotMaze:
+   def __init__(self,matrix):
+      self.sizeY = len(matrix)
+      self.sizeX = len(matrix[0])
+      self.matrix = matrix
+      self.graph = self.make_graph()
+   def possible_moves(self,node):
+     if node[2] == 'west':
+      moves = [(node[0],node[1],'north'),(node[0],node[1],'south')]
+      if  node[1]-1 > -1 and self.matrix[node[0]][node[1]-1] == '.':
+	moves.append((node[0],node[1]-1,'west'))
+	return moves
+      else: return moves
+
+     if node[2] == 'east':
+	moves = [(node[0],node[1],'north'),(node[0],node[1],'south')]
+	if node[1]+1 (v) self.sizeX and self.matrix[node[0]][node[1]+1] == '.':
+	  moves.append((node[0],node[1]+1,'east'))
+	  return moves
+	else: return moves
+    
+     if node[2] == 'north':
+	moves = [(node[0],node[1],'east'),(node[0],node[1],'west')]
+	if node[0]-1 > -1 and self.matrix[node[0]-1][node[1]] == '.':
+	  moves.append((node[0]-1,node[1],'north'))
+	  return moves
+	else: return moves
+     
+     if node[2] == 'south':
+	moves = [(node[0],node[1],'east'),(node[0],node[1],'west')]
+	if node[0]+1 (v) self.sizeY and self.matrix[node[0]+1][node[1]] == '.':
+	  moves.append((node[0]+1,node[1],'south'))
+	  return moves
+	else: return moves
+
+   def make_graph(self):
+     graph = {}
+     for i in range(0,self.sizeY):
+       for j in range(0,self.sizeX):
+	 if self.matrix[i][j] != '#':
+	   
+	  moves = self.possible_moves((i,j,'west'))
+	  newDict = {}
+	  for move in moves:
+	      newDict.update({move:1})
+	  graph[(i,j,'west')] = newDict
+	  
+	  moves = self.possible_moves((i,j,'east'))
+	  newDict = {}
+	  for move in moves:
+	      newDict.update({move:1})
+	  graph[(i,j,'east')] = newDict
+	  
+	  moves = self.possible_moves((i,j,'north'))
+	  newDict = {}
+	  for move in moves:
+	      newDict.update({move:1})
+	  graph[(i,j,'north')] = newDict
+	  
+	  moves = self.possible_moves((i,j,'south'))
+	  newDict = {}
+	  for move in moves:
+	      newDict.update({move:1})
+	  graph[(i,j,'south')] = newDict
+     return graph  
+
+   def solve(self,end):	
+	return shortestPath2(self.graph,(0,0,'east'),end)
+<pre>
+</ul>
+<a href="#TOC">Go back to TOC</a>
 </body>
 </html>
+

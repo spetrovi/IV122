@@ -123,98 +123,6 @@ def shortestPath2(G,start,end):
 
 
 
-class numMaze:
-   def __init__(self,matrix):
-      self.size = len(matrix)
-      self.x = 0
-      self.y = 0
-      self.matrix = matrix
-      self.graph = self.make_graph()
-      
-   def go_to(self, position):
-	self.x = position[0]
-	self.y = position[1]
-
-   def possible_moves(self,x,y):
-	number = self.matrix[x][y]
-	positions = [(x+number,y),(x-number,y),(x,y+number),(x,y-number)]	
-	positions = filter(lambda x: x[0]>-1 and x[0]<self.size and x[1]>-1 and x[1]<self.size, positions)
-	return positions
-
-   def bogo_solve(self):
-	while self.x!=self.size-1 or self.y!=self.size-1:
-		try:
-			self.go_to(choice(self.possible_moves(self.x,self.y)))
-		except IndexError:
-			print 'stuck'
-			return
-		print self.x, self.y
-
-   def make_graph(self):
-	graph = {}
-	for i in range(0,self.size):
-		for j in range(0,self.size):
-			node = (i,j)
-			moves = self.possible_moves(i,j)
-			newDict = {}
-			for move in moves:
-				newDict.update({move:1})
-			graph[node] = newDict
-	return graph
-
-   def solve(self):	
-	return shortestPath(self.graph,(0,0),(self.size-1,self.size-1))
-	
-   def is_unique(self):	
-	P = self.solve()
-	length = len(P)
-	print P
-	for i in range(0,length-1):
-		del self.graph[P[i]][P[i+1]]
-	try:
-		P = shortestPath(self.graph,(0,0),(self.size-1,self.size-1))
-	except KeyError:
-		print 'This solution is the only path'
-		return 1
-	if length == len(P):
-		print 'This solution is not the only shortest path'
-		return 0
-	print 'This solution is the only shortest path'
-	return 1
-
-
-level6n = [[3,2,4,4,3,1],
-	  [3,4,2,1,5,3],
- 	  [1,1,4,5,2,2],
- 	  [5,3,3,5,1,4],
- 	  [2,4,5,4,2,2],
- 	  [5,1,4,3,3,1]]
-level0 = [[1,1,1],
-	 [1,1,1],
-	 [1,1,1]]
-level6s = [[4,3,3,2,5,2],
-	  [4,2,3,3,3,4],
- 	  [4,4,5,5,5,4],
- 	  [1,3,3,4,2,3],
- 	  [2,2,4,2,3,4],
- 	  [5,3,5,4,3,1]]
-level7i = [[4,2,2,4,5,4,4],
-	   [4,6,1,4,1,5,3],
- 	   [2,3,3,4,2,5,3],
- 	   [3,2,3,5,1,4,3],
- 	   [6,4,1,5,5,1,6],
- 	   [2,1,3,1,4,3,6],
-	   [3,3,2,6,2,6,1]]
-level6q = [[2,3,5,5,1,1],
-	  [2,1,1,4,4,2],
- 	  [5,3,2,2,4,4],
- 	  [3,3,5,4,5,3],
- 	  [2,4,3,1,3,1],
- 	  [3,5,2,4,3,1]]
-
-maze = numMaze(level0)
-print maze.solve()
-#maze.is_unique()
 
 class robotMaze:
    def __init__(self,matrix):
@@ -301,7 +209,7 @@ level0= [['.','.'],
 
 
 
-#maze2 = robotMaze(level1)
-#print maze2.solve((5,5,'east'))
+maze2 = robotMaze(level1)
+print maze2.solve((5,5,'east'))
 
 
